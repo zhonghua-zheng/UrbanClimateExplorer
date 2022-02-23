@@ -2,7 +2,7 @@ Urban Climate Explorer
 ------------------------------------------------
 |docs| |GitHub| |binder| |license|
 
-.. |docs| image:: https://readthedocs.org/projects/UrbanClimateExplorer/badge/?version=latest
+.. |docs| image:: https://readthedocs.org/projects/urbanclimateexplorer/badge/?version=latest
    :target: https://urbanclimateexplorer.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
