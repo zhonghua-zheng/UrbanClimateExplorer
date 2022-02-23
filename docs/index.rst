@@ -41,4 +41,4 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
 How to ask for help
 -------------------
 
-The `GitHub issue tracker <https://github.com/zzheng93/pmcpy/issues>`_ is the primary place for bug reports. 
+The `GitHub issue tracker <https://github.com/zzheng93/UrbanClimateExplorer/issues>`_ is the primary place for bug reports. 
