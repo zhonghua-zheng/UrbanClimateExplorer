@@ -4,7 +4,7 @@ About
 |docs| |GitHub| |binder| |license|
 
 .. |docs| image:: https://readthedocs.org/projects/UrbanClimateExplorer/badge/?version=latest
-   :target: https://UrbanClimateExplorer.readthedocs.io/en/latest/?badge=latest
+   :target: https://urbanclimateexplorer.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
 .. |GitHub| image:: https://img.shields.io/badge/GitHub-UrbanClimateExplorer-brightgreen.svg
