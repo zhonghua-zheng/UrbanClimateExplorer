@@ -1,0 +1,20 @@
+channels:
+- conda-forge
+- defaults
+
+dependencies:
+- python=3.8.0
+- intake-esm
+- s3fs
+- jupyterlab
+- matplotlib
+- xarray
+- pandas
+- scikit-learn
+- tqdm
+- pip
+- pip:
+  - netcdf4
+  - haversine
+  - flaml
+name: aws_urban
