@@ -37,6 +37,11 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :caption: Tutorial
 
    notebooks/basic_demo
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Reference
+      
    page/how_to_create_a_json_file.md
 
 How to ask for help
