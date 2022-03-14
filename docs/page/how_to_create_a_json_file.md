@@ -1,6 +1,6 @@
-## How to create a json file?
+## How to create a JSON file?
 
-```
+```python
 {
 "city_loc": {"lat": 40.1164, "lon": -88.2434}, 
 "catalog_url": "https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json", 
