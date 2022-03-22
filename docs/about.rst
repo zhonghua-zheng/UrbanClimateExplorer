@@ -16,4 +16,4 @@ About
 .. |license| image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://github.com/zzheng93/UrbanClimateExplorer/blob/master/LICENSE
 
-Explore and Emulate Urban Climate on AWS Cloud.
+Explore and Emulate Urban Climate on AWS Cloud

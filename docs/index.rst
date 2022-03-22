@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Urban Climate Explorer - Explore and Emulate Urban Climate on AWS Cloud
+Urban Climate Explorer
 =======================================================================
 
 |docs| |GitHub| |binder| |license|
