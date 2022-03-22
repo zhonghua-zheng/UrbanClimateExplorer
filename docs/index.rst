@@ -43,6 +43,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :caption: Reference
 
    page/how_to_create_a_json_file.md
+   notebooks/get_urban_areas_mask
 
 How to ask for help
 -------------------
