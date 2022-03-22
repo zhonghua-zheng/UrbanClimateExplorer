@@ -25,6 +25,7 @@ jobs:
           pip install -r requirements.txt
       - name: Build Sphinx docs
         run: |
+          cd docs
           make html
       # https://github.com/marketplace/actions/github-pages
       #- if: success()
@@ -42,7 +43,7 @@ jobs:
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: build/html/
+          publish_dir: docs/build/html/
 
 
 # This action probably does everything for you:
