@@ -22,8 +22,9 @@ jobs:
       # I don't know where the "run" thing is documented.
       - name: Install dependencies
         run: |
+          sudo apt install pandoc
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pandoc
       - name: Build Sphinx docs
         run: |
           cd docs
