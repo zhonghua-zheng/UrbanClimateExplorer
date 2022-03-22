@@ -1,6 +1,6 @@
 ## How to create a JSON file?
 
-### Detail of the JSON file 
+**Detail of the JSON file** 
 
 Below is a template of the JSON file. JSON is an open standard file format an data interchange format that uses human-readable text to store and transmit data object. You can click [here](https://en.wikipedia.org/wiki/JSON) to find more information of JSON.
 
@@ -59,7 +59,7 @@ label: a list of string (currently we only support a single element within the l
 		label for machine learning, "label" means something we want to predict, e.g., ["TREFMXAV_U"]
 ```
 
-### How to create a JSON file using Python
+**How to create a JSON file using Python**
 
 ```python
 import json
@@ -87,7 +87,7 @@ with open('./config.json', 'w') as outfile:
     json.dump(data, outfile)
 ```
 
-### How to load a JSON file using Python
+**How to load a JSON file using Python**
 
 ```python
 with open("./config.json",'r') as load_f:
