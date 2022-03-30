@@ -11,5 +11,5 @@ Step 1: use conda to install the environment::
 Step 2: launch jupyter::
 
     $ git clone git@github.com:zzheng93/UrbanClimateExplorer.git
-    $ cd ./UrbanClimateExplorer/notebooks 
+    $ cd ./UrbanClimateExplorer/docs/notebooks 
     $ jupyter notebook
