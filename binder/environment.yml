@@ -12,9 +12,10 @@ dependencies:
 - pandas
 - scikit-learn
 - tqdm
+- flaml=1.0.0
+- fastparquet
 - pip
 - pip:
-  - netcdf4
+  - netCDF4==1.5.8
   - haversine
-  - flaml
 name: aws_urban
