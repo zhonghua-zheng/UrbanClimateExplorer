@@ -44,19 +44,19 @@ cam_ls : a list of string
 clm_ls : a list of string
     CLM (land) variables, e.g., ["TREFMXAV_U"] (Urban daily maximum of average 2-m temperature) 
 time_start: string
-		start date, e.g., "2081-01-02"
+    start date, e.g., "2081-01-02"
 time_end: string
-		end date, e.g., "2100-12-31"
+    end date, e.g., "2100-12-31"
 member_id : a list of int
     CESM1 large ensemble member ID, e.g., [2,3]
 estimator_list : a list of string
-		A list of strings for estimator names, e.g., ["lgbm", "xgboost", "rf", "extra_tree"], or 'auto'
+    a list of strings for estimator names, e.g., ["lgbm", "xgboost", "rf", "extra_tree"], or 'auto'
 time_budget : int
-		Total running time in seconds, e.g., 15
+    total running time in seconds, e.g., 15
 features : a list of string
-		features (predictors) for machine learning, it should be a subset of "cam_ls"
+    features (predictors) for machine learning, it should be a subset of "cam_ls"
 label: a list of string (currently we only support a single element within the list)
-		label for machine learning, "label" means something we want to predict, e.g., ["TREFMXAV_U"]
+    label for machine learning, "label" means something we want to predict, e.g., ["TREFMXAV_U"]
 ```
 
 **How to create a JSON file using Python**
