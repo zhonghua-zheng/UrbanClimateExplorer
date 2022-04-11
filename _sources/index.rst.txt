@@ -30,7 +30,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :caption: Overview
 
    about
-   installation
+   pages/install_run.md
 
 .. toctree::
    :maxdepth: 2
@@ -42,7 +42,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :maxdepth: 2
    :caption: Reference
 
-   page/how_to_create_a_json_file.md
+   pages/how_to_create_a_json_file.md
    notebooks/CESM1_get_urban_areas_mask.ipynb
    notebooks/CESM2_data_template.ipynb
 
