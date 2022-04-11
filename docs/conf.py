@@ -40,10 +40,11 @@ extensions = [
 'numpydoc', 
 'sphinx.ext.autosummary',
 'sphinx.ext.mathjax',
+"sphinx_autosummary_accessors",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['_templates', sphinx_autosummary_accessors.templates_path]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
