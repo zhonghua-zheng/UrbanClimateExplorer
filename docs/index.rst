@@ -36,14 +36,15 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :maxdepth: 2
    :caption: Tutorial
 
-   notebooks/basic_demo
+   notebooks/CESM1_demo.ipynb
 
 .. toctree::
    :maxdepth: 2
    :caption: Reference
 
    page/how_to_create_a_json_file.md
-   notebooks/get_urban_areas_mask
+   notebooks/CESM1_get_urban_areas_mask.ipynb
+   notebooks/CESM2_data_template.ipynb
 
 How to ask for help
 -------------------

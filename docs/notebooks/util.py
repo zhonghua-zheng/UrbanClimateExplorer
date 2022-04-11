@@ -68,8 +68,9 @@ def get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls, a_compon
     dsets_clm = dsets[l_component+"."+experiment+"."+frequency].sel(member_id=member_id, time=time)[clm_ls]
     return dsets_cam, dsets_clm
 
-def convert_lon(ds):
+def lon_to_180(ds):
     """This is a function for converting longitude from (0, 360) to (-180, 180)
+    ref: https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180/201793
 
     Parameters
     ----------
@@ -84,6 +85,22 @@ def convert_lon(ds):
     ds=ds.assign_coords(lon=(((ds.lon + 180) % 360) - 180))
     ds=ds.reindex(lon=sorted(ds.lon))  
     return ds
+
+def lon_to_360(lon):
+    """This is a function for converting input city's lon from (-180, 180) to (0, 360)
+    ref: https://gis.stackexchange.com/questions/201789/verifying-formula-that-will-convert-longitude-0-360-to-180-to-180/201793
+    
+    Parameters
+    ----------
+    lon : float
+        longitude ranges from -180 to 180
+
+    Returns
+    -------
+    float
+        longitude ranges from 0 to 360
+    """
+    return lon*1.0%360
 
 def get_mask_cities(mask_path):
     """This is a function for getting urban mask and a list of cities' lat and lon
@@ -100,7 +117,7 @@ def get_mask_cities(mask_path):
     """
     mask = xr.open_dataset(mask_path)["mask"]  # get mask
     
-    df_mask = convert_lon(mask).rename("mask").to_dataframe().reset_index() # get mask dataframe
+    df_mask = mask.rename("mask").to_dataframe().reset_index() # get mask dataframe
     df_mask = df_mask[df_mask["mask"]==True].reset_index(drop=True)[["lat","lon"]] # get available cities
     CitiesList = list(df_mask.transpose().to_dict().values()) # get a list of city lat/lon
     return mask, CitiesList
@@ -164,10 +181,10 @@ def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, a
     # get data
     dsets_cam, dsets_clm = get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls)
     if ((COI["lat"]!=None) & (COI["lon"]!=None)):
-        ds = xr.merge([convert_lon(dsets_cam.where(mask)).sel(lat=COI["lat"],lon=COI["lon"],method="nearest"),
-                       convert_lon(dsets_clm.where(mask)).sel(lat=COI["lat"],lon=COI["lon"],method="nearest")]).load()
+        ds = xr.merge([dsets_cam.where(mask).sel(lat=COI["lat"],lon=lon_to_360(COI["lon"]),method="nearest"),
+                       dsets_clm.where(mask).sel(lat=COI["lat"],lon=lon_to_360(COI["lon"]),method="nearest")]).load()
     else:
-        ds = convert_lon(xr.merge([dsets_cam,dsets_clm]).load())
+        ds = xr.merge([dsets_cam,dsets_clm].load())
         
     return ds
       
