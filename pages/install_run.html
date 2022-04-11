@@ -20,7 +20,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Step 0: load necessary packages and define parameters (no need to change)" href="../notebooks/CESM1_demo.html" />
+    <link rel="next" title="Example for CESM 1" href="../notebooks/CESM1_demo.html" />
     <link rel="prev" title="About" href="../about.html" /> 
 </head>
 
@@ -46,9 +46,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM1_demo.html">Step 0: load necessary packages and define parameters (no need to change)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM1_demo.html#Step-1:-data-analysis">Step 1: data analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM1_demo.html#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM1_demo.html">Example for CESM 1</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -138,7 +136,7 @@ jupyter notebook --no-browser --ip<span class="o">=</span><span class="sb">`</sp
 </div>
 <p>Second, run the commands below</p>
 <p>Note: please use <code class="docutils literal notranslate"><span class="pre">your</span> <span class="pre">own</span> <span class="pre">job</span> <span class="pre">code</span></code> instead of “UIUC0021”. You can find more information about execcasper <a class="reference external" href="https://arc.ucar.edu/knowledge_base/72581396">here</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ execcasper -A UIUC0021 -l <span class="nv">gpu_type</span><span class="o">=</span>v100 -l <span class="nv">walltime</span><span class="o">=</span><span class="m">06</span>:00:00 -l $ <span class="k">select</span><span class="o">=</span><span class="m">1</span>:ncpus<span class="o">=</span><span class="m">18</span>:mpiprocs<span class="o">=</span><span class="m">36</span>:ngpus<span class="o">=</span><span class="m">1</span>:mem<span class="o">=</span>100GB
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ execcasper -A UIUC0021 -l <span class="nv">gpu_type</span><span class="o">=</span>v100 -l <span class="nv">walltime</span><span class="o">=</span><span class="m">06</span>:00:00 -l <span class="k">select</span><span class="o">=</span><span class="m">1</span>:ncpus<span class="o">=</span><span class="m">18</span>:mpiprocs<span class="o">=</span><span class="m">36</span>:ngpus<span class="o">=</span><span class="m">1</span>:mem<span class="o">=</span>100GB
 $ bash aws_urban_env.sh
 </pre></div>
 </div>
@@ -151,7 +149,7 @@ $ bash aws_urban_env.sh
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../about.html" class="btn btn-neutral float-left" title="About" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../notebooks/CESM1_demo.html" class="btn btn-neutral float-right" title="Step 0: load necessary packages and define parameters (no need to change)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../notebooks/CESM1_demo.html" class="btn btn-neutral float-right" title="Example for CESM 1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

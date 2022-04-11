@@ -37,9 +37,9 @@ $ conda activate aws_urban
 
   Second, run the commands below
 
-  Note: please use `your own job code` instead of "UIUC0021". You can find more information about execcasper [here](https://arc.ucar.edu/knowledge_base/72581396)
+  Note: please use `your own job code` instead of "UIUC0021". You can find more information about execcasper [here](https://arc.ucar.edu/knowledge_base/72581396)    
 
   ```bash
-  $ execcasper -A UIUC0021 -l gpu_type=v100 -l walltime=06:00:00 -l $ select=1:ncpus=18:mpiprocs=36:ngpus=1:mem=100GB
+  $ execcasper -A UIUC0021 -l gpu_type=v100 -l walltime=06:00:00 -l select=1:ncpus=18:mpiprocs=36:ngpus=1:mem=100GB
   $ bash aws_urban_env.sh
   ```

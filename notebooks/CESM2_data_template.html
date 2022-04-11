@@ -47,9 +47,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html">Step 0: load necessary packages and define parameters (no need to change)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html#Step-1:-data-analysis">Step 1: data analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html">Example for CESM 1</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -363,7 +361,7 @@ div.rendered_html tbody tr:hover {
 <div class="line-block">
 <div class="line">In general, CESM’s CLM varibales are saved as <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">landunit)</span></code>.</div>
 <div class="line">But usually we want to analyze the datasets with the format <code class="docutils literal notranslate"><span class="pre">(time,</span> <span class="pre">lat,</span> <span class="pre">lon)</span></code>.</div>
-<div class="line">So the workflow for CESM’s CLM variables would be - <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">landunit)</span></code> [1D] -&gt; <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">landtype,</span> <span class="pre">lat,</span> <span class="pre">lon)</span></code> [3D] -&gt; <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">land,</span> <span class="pre">lon)</span></code></div>
+<div class="line">So the workflow for CESM’s CLM variables would be - <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">landunit)</span></code> [1D] -&gt; <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">landtype,</span> <span class="pre">lat,</span> <span class="pre">lon)</span></code> [3D] -&gt; <code class="docutils literal notranslate"><span class="pre">(:,</span> <span class="pre">land,</span> <span class="pre">lon)</span></code> [2D]</div>
 </div>
 <div class="line-block">
 <div class="line">As a result, we at least need to know:</div>

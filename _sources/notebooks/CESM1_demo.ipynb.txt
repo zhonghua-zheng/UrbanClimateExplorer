@@ -2,6 +2,14 @@
  "cells": [
   {
    "cell_type": "markdown",
+   "id": "26efd514",
+   "metadata": {},
+   "source": [
+    "## Example for CESM 1 "
+   ]
+  },
+  {
+   "cell_type": "markdown",
    "id": "dd3f8e4a-6a62-4434-a7aa-8cf913527976",
    "metadata": {},
    "source": [
@@ -15,7 +23,7 @@
    "id": "insured-finnish",
    "metadata": {},
    "source": [
-    "## Step 0: load necessary packages and define parameters (no need to change)"
+    "**Step 0: load necessary packages and define parameters (no need to change)**"
    ]
   },
   {
@@ -149,7 +157,7 @@
    "id": "productive-negative",
    "metadata": {},
    "source": [
-    "## Step 1: data analysis"
+    "### Step 1: data analysis"
    ]
   },
   {
@@ -852,7 +860,7 @@
    "id": "confused-affect",
    "metadata": {},
    "source": [
-    "## Step 2: automated machine learning"
+    "### Step 2: automated machine learning"
    ]
   },
   {

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Step 0: load necessary packages and define parameters (no need to change) &mdash; Urban Climate Explorer 0.0.0 documentation</title>
+  <title>Example for CESM 1 &mdash; Urban Climate Explorer 0.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -48,9 +48,11 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Step 0: load necessary packages and define parameters (no need to change)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Step-1:-data-analysis">Step 1: data analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example for CESM 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Step-1:-data-analysis">Step 1: data analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -73,7 +75,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Step 0: load necessary packages and define parameters (no need to change)</li>
+      <li>Example for CESM 1</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/notebooks/CESM1_demo.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -353,13 +355,14 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
+<section id="Example-for-CESM-1">
+<h1>Example for CESM 1<a class="headerlink" href="#Example-for-CESM-1" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">Tutorial at:</div>
 <div class="line">- GitHub: <a class="reference external" href="https://github.com/ncar/cesm-lens-aws/">https://github.com/ncar/cesm-lens-aws/</a></div>
 <div class="line">- Reproduce CESM-LENS: <a class="reference external" href="http://gallery.pangeo.io/repos/NCAR/cesm-lens-aws/notebooks/kay-et-al-2015.v3.html">http://gallery.pangeo.io/repos/NCAR/cesm-lens-aws/notebooks/kay-et-al-2015.v3.html</a></div>
 </div>
-<section id="Step-0:-load-necessary-packages-and-define-parameters-(no-need-to-change)">
-<h1>Step 0: load necessary packages and define parameters (no need to change)<a class="headerlink" href="#Step-0:-load-necessary-packages-and-define-parameters-(no-need-to-change)" title="Permalink to this headline"></a></h1>
+<p><strong>Step 0: load necessary packages and define parameters (no need to change)</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -471,9 +474,8 @@ CPU times: user 53.2 s, sys: 26 s, total: 1min 19s
 Wall time: 59.8 s
 </pre></div></div>
 </div>
-</section>
 <section id="Step-1:-data-analysis">
-<h1>Step 1: data analysis<a class="headerlink" href="#Step-1:-data-analysis" title="Permalink to this headline"></a></h1>
+<h2>Step 1: data analysis<a class="headerlink" href="#Step-1:-data-analysis" title="Permalink to this headline"></a></h2>
 <p><strong>xarray.Dataset</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -1067,12 +1069,12 @@ VBOT</dd><dt><span>nco_openmp_thread_number :</span></dt><dd>1</dd><dt><span>log
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM1_demo_9_1.png" src="../_images/notebooks_CESM1_demo_9_1.png" />
+<img alt="../_images/notebooks_CESM1_demo_10_1.png" src="../_images/notebooks_CESM1_demo_10_1.png" />
 </div>
 </div>
 </section>
 <section id="Step-2:-automated-machine-learning">
-<h1>Step 2: automated machine learning<a class="headerlink" href="#Step-2:-automated-machine-learning" title="Permalink to this headline"></a></h1>
+<h2>Step 2: automated machine learning<a class="headerlink" href="#Step-2:-automated-machine-learning" title="Permalink to this headline"></a></h2>
 <p><strong>train a model (emulator)</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -1175,9 +1177,10 @@ r2: 0.9478350071581718
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM1_demo_16_0.png" src="../_images/notebooks_CESM1_demo_16_0.png" />
+<img alt="../_images/notebooks_CESM1_demo_17_0.png" src="../_images/notebooks_CESM1_demo_17_0.png" />
 </div>
 </div>
+</section>
 </section>
 
 
