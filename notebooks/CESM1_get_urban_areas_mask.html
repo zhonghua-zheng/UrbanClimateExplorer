@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to create a mask of “urban areas” defined in CESM1? &mdash; Urban Climate Explorer 0.0.0 documentation</title>
+  <title>How to create a mask for CESM1’s “urban areas”? &mdash; Urban Climate Explorer 0.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -22,6 +22,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="How to create a template file for CESM2’s CLM processing?" href="CESM2_data_template.html" />
     <link rel="prev" title="How to create a JSON file?" href="../page/how_to_create_a_json_file.html" /> 
 </head>
 
@@ -47,14 +48,15 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="basic_demo.html">Step 0: load necessary packages and define parameters (no need to change)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_demo.html#Step-1:-data-analysis">Step 1: data analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_demo.html#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html">Step 0: load necessary packages and define parameters (no need to change)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html#Step-1:-data-analysis">Step 1: data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html#Step-2:-automated-machine-learning">Step 2: automated machine learning</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../page/how_to_create_a_json_file.html">How to create a JSON file?</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to create a mask of “urban areas” defined in CESM1?</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to create a mask for CESM1’s “urban areas”?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM2_data_template.html">How to create a template file for CESM2’s CLM processing?</a></li>
 </ul>
 
         </div>
@@ -71,9 +73,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>How to create a mask of “urban areas” defined in CESM1?</li>
+      <li>How to create a mask for CESM1’s “urban areas”?</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/notebooks/get_urban_areas_mask.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notebooks/CESM1_get_urban_areas_mask.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -351,9 +353,9 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<section id="How-to-create-a-mask-of-“urban-areas”-defined-in-CESM1?">
-<h1>How to create a mask of “urban areas” defined in CESM1?<a class="headerlink" href="#How-to-create-a-mask-of-“urban-areas”-defined-in-CESM1?" title="Permalink to this headline"></a></h1>
-<p>This script is used for creating a urban mask at the global scale</p>
+<section id="How-to-create-a-mask-for-CESM1’s-“urban-areas”?">
+<h1>How to create a mask for CESM1’s “urban areas”?<a class="headerlink" href="#How-to-create-a-mask-for-CESM1’s-“urban-areas”?" title="Permalink to this headline"></a></h1>
+<p>This script is used for creating a urban mask at the global scale for CESM1 data.</p>
 <div class="line-block">
 <div class="line">Reference:</div>
 <div class="line">- GitHub: <a class="reference external" href="https://github.com/ncar/cesm-lens-aws/">https://github.com/ncar/cesm-lens-aws/</a></div>
@@ -449,14 +451,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7fd992571370&gt;
+&lt;matplotlib.collections.QuadMesh at 0x2abf60495790&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_get_urban_areas_mask_7_1.png" src="../_images/notebooks_get_urban_areas_mask_7_1.png" />
+<img alt="../_images/notebooks_CESM1_get_urban_areas_mask_7_1.png" src="../_images/notebooks_CESM1_get_urban_areas_mask_7_1.png" />
 </div>
 </div>
 <div class="line-block">
@@ -467,7 +469,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">,</span><span class="s2">&quot;member_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;mask&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;./urban_mask.nc&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">da</span><span class="o">.</span><span class="n">notnull</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;time&quot;</span><span class="p">,</span><span class="s2">&quot;member_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;mask&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;./CESM1_urban_mask.nc&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -476,7 +478,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;./urban_mask.nc&quot;</span><span class="p">)[</span><span class="s2">&quot;mask&quot;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="s2">&quot;./CESM1_urban_mask.nc&quot;</span><span class="p">)[</span><span class="s2">&quot;mask&quot;</span><span class="p">]</span>
 <span class="n">mask</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -487,14 +489,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7fd992c4a790&gt;
+&lt;matplotlib.collections.QuadMesh at 0x2abf60a2df10&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_get_urban_areas_mask_11_1.png" src="../_images/notebooks_get_urban_areas_mask_11_1.png" />
+<img alt="../_images/notebooks_CESM1_get_urban_areas_mask_11_1.png" src="../_images/notebooks_CESM1_get_urban_areas_mask_11_1.png" />
 </div>
 </div>
 <p><strong>Step 5: apply the urban mask to CAM</strong></p>
@@ -553,14 +555,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.collections.QuadMesh at 0x7fd9927778b0&gt;
+&lt;matplotlib.collections.QuadMesh at 0x2abf6164fd60&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_get_urban_areas_mask_14_4.png" src="../_images/notebooks_get_urban_areas_mask_14_4.png" />
+<img alt="../_images/notebooks_CESM1_get_urban_areas_mask_14_4.png" src="../_images/notebooks_CESM1_get_urban_areas_mask_14_4.png" />
 </div>
 </div>
 <p>apply the mask to CAM data and calculate the difference</p>
@@ -582,7 +584,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_get_urban_areas_mask_16_0.png" src="../_images/notebooks_get_urban_areas_mask_16_0.png" />
+<img alt="../_images/notebooks_CESM1_get_urban_areas_mask_16_0.png" src="../_images/notebooks_CESM1_get_urban_areas_mask_16_0.png" />
 </div>
 </div>
 <p>check the dimension</p>
@@ -610,6 +612,7 @@ city number: 4439
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../page/how_to_create_a_json_file.html" class="btn btn-neutral float-left" title="How to create a JSON file?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CESM2_data_template.html" class="btn btn-neutral float-right" title="How to create a template file for CESM2’s CLM processing?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
