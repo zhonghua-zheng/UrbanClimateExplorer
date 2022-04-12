@@ -2,10 +2,10 @@ import intake
 import numpy as np
 import pandas as pd
 import xarray as xr
+import time as timer
 from haversine import haversine
 
 cesm1_catalog_url = 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json'
-mask_path_ref = "./urban_mask.nc"
 
 def get_dsets(experiment, frequency, variable, catalog_url=cesm1_catalog_url):
     """This is a function for getting a dictionary of aggregate xarray datasets
@@ -102,25 +102,59 @@ def lon_to_360(lon):
     """
     return lon*1.0%360
 
-def get_mask_cities(mask_path):
+def get_time_invariant_urban_mask(dsets, var, idx=0, arr_name="mask"):
+    """This is a function for creating a time invariant urban mask.
+    If we use 2006-01-01, given the that is not available, we should use 1 for the idx.
+    We are interested in lat and lon only, e.g., 
+    ["time", "lat", "lon"] if time is considered.
+
+    Parameters
+    ----------
+    dsets : xarray.DataArray
+        _description_
+    var : variable that we are interested in
+        _description_
+    idx : int, optional
+        index of other dimensions, by default 0
+    arr_name : str, optional
+        name of the mask, by default "mask"
+
+    Returns
+    -------
+    xarray.DataArray
+        urban mask
+    """
+    da = dsets[var]
+    for dim in da.dims:
+        if dim not in ["lat","lon"]:
+            da = da.isel({dim:idx}).squeeze().drop(dim)
+            # or da = da.sel({dim:da[dim][idx]}).squeeze().drop(dim)
+    return da.rename(arr_name).notnull().load()
+
+def get_mask_cities(mask):
     """This is a function for getting urban mask and a list of cities' lat and lon
 
     Parameters
     ----------
-    mask_path : string
-        path to the urban mask 
+    mask : xarray.DataArray
+        urban mask
 
     Returns
     -------
-    xarray.DataArray and dict
-        a xarray.DataArray of the urban mask, and a dict of cities' lat and lon
+    dict
+        a dict of cities' lat and lon
     """
-    mask = xr.open_dataset(mask_path)["mask"]  # get mask
     
-    df_mask = mask.rename("mask").to_dataframe().reset_index() # get mask dataframe
+    # pad a new mask for periodic in longitude
+    mask_pad = mask.sel(lon=slice(0,180))
+    mask_pad = mask_pad.assign_coords(lon = mask_pad.indexes['lon']+360)
+    mask_w_pad = xr.concat([mask, mask_pad], dim="lon")
+    
+    # get mask dataframe
+    df_mask = mask_w_pad.to_dataframe().reset_index() 
     df_mask = df_mask[df_mask["mask"]==True].reset_index(drop=True)[["lat","lon"]] # get available cities
     CitiesList = list(df_mask.transpose().to_dict().values()) # get a list of city lat/lon
-    return mask, CitiesList
+    return CitiesList
 
 def closest(data, v):
     """find the nearest urban grid cell in CESM using haversine distance
@@ -143,7 +177,7 @@ def closest(data, v):
     return min(data, key=lambda p: haversine((v['lat'],v['lon']),(p['lat'],p['lon'])))
 
 # get nearst point
-def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, a_component="atm", l_component="lnd", mask_path = mask_path_ref):
+def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, clm_var_mask, a_component="atm", l_component="lnd"):
     """_summary_
 
     Parameters
@@ -166,26 +200,45 @@ def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, a
         component name of CAM, by default "atm"
     l_component : str, optional
         component name of CLM, by default "lnd"    
-    mask_path : string
-        path to the urban mask 
 
     Returns
     -------
     xarray.Dataset
         a dataset with the CESM urban grid cell nearest to the "city of interest"
     """
-    
-    # get city list
-    mask, CitiesList = get_mask_cities(mask_path)
-    COI = closest(CitiesList, city_loc)
+
     # get data
+#     t0 = timer.time()
     dsets_cam, dsets_clm = get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls)
+#     print(timer.time()-t0,": get data from AWS")
+
+    # get urban mask based on dsets_clm, use the first element of clm_ls if not specified
+#     t0 = timer.time()
+    if clm_var_mask is None:
+        clm_var_mask = clm_ls[0]
+    mask = get_time_invariant_urban_mask(dsets_clm, clm_var_mask, idx=0, arr_name="mask")
+#     print(timer.time()-t0,": get urban mask")
+
+    # get city list
+#     t0 = timer.time()
+    CitiesList = get_mask_cities(mask)
+#     print(timer.time()-t0,": get city list")
+
+    # get nearest urban grid cell in CESM
+#     t0 = timer.time()
+    COI = closest(CitiesList, city_loc)
+    COI["lon"] = lon_to_360(COI["lon"])
+#     print(timer.time()-t0,": get nearest gridcell")
+
+    # apply the mask and get data
+#     t0 = timer.time()
     if ((COI["lat"]!=None) & (COI["lon"]!=None)):
-        ds = xr.merge([dsets_cam.where(mask).sel(lat=COI["lat"],lon=lon_to_360(COI["lon"]),method="nearest"),
-                       dsets_clm.where(mask).sel(lat=COI["lat"],lon=lon_to_360(COI["lon"]),method="nearest")]).load()
+        ds = xr.merge([dsets_cam.where(mask).sel(lat=COI["lat"],lon=COI["lon"],method="nearest"),
+                       dsets_clm.where(mask).sel(lat=COI["lat"],lon=COI["lon"],method="nearest")]).load()
     else:
-        ds = xr.merge([dsets_cam,dsets_clm].load())
-        
+        ds = xr.merge([dsets_cam.where(mask),dsets_clm.where(mask)].load())
+#     print(timer.time()-t0,": apply mask and get data")
+    
     return ds
       
     
