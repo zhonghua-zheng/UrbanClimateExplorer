@@ -1,5 +1,6 @@
 Urban Climate Explorer
-------------------------------------------------
+=======================================================================
+
 |docs| |GitHub| |binder| |license|
 
 .. |docs| image:: https://readthedocs.org/projects/urbanclimateexplorer/badge/?version=latest
@@ -17,27 +18,13 @@ Urban Climate Explorer
 
 Explore and Emulate Urban Climate on AWS Cloud.
 
+Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
+
 How to use it?
 --------------
 You may reproduce the jupyter notebook example on `Binder <https://mybinder.org/v2/gh/zzheng93/UrbanClimateExplorer/HEAD?labpath=docs%2Fnotebooks>`_.
 
-Please check `online documentation <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ for more information.
-
-How to play with it locally?
-----------------------------
-
-Step 1: use conda to install the environment::
-
-    $ git clone git@github.com:zzheng93/UrbanClimateExplorer.git
-    $ cd ./UrbanClimateExplorer/binder 
-    $ conda env create -f environment.yml
-    $ conda activate aws_urban
-
-Step 2: launch jupyter::
-
-    $ git clone git@github.com:zzheng93/UrbanClimateExplorer.git
-    $ cd ./UrbanClimateExplorer/docs/notebooks 
-    $ jupyter notebook
+Please check `online documentation <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ (or `Read the Docs <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ version) for more information.
 
 How to ask for help
 -------------------

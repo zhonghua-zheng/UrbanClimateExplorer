@@ -29,7 +29,6 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :maxdepth: 2
    :caption: Overview
 
-   about
    pages/install_run.md
 
 .. toctree::
