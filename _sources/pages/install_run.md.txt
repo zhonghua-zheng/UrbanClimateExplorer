@@ -37,9 +37,23 @@ $ conda activate aws_urban
 
   Second, run the commands below
 
-  Note: please use `your own job code` instead of "UIUC0021". You can find more information about execcasper [here](https://arc.ucar.edu/knowledge_base/72581396)    
+  Note: please use `your own job code` instead of "UIUC0021". You can find more information about `execcasper` [here](https://arc.ucar.edu/knowledge_base/72581396)    
 
   ```bash
   $ execcasper -A UIUC0021 -l gpu_type=v100 -l walltime=06:00:00 -l select=1:ncpus=18:mpiprocs=36:ngpus=1:mem=100GB
   $ bash aws_urban_env.sh
   ```
+  
+  Thrid, launch a new terminal, copy and paste the command printed by the "echo" command, and log in. Then open your browser (e.g., Google Chrome), type `https://localhost:8889`.    
+  
+  Note: Sometimes, "8889" may be used by others. In this case, adjust your bash script accordingly, e.g., from "8889" to "8892":
+  
+  ```bash
+  ```bash
+  #!/bin/bash
+  source  /glade/work/zhonghua/miniconda3/bin/activate aws_urban
+  echo "ssh -N -L 8889:`hostname`:8892 $USER@`hostname`.ucar.edu"
+  jupyter notebook --no-browser --ip=`hostname` --port=8892
+  ```
+  ```
+  
