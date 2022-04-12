@@ -2,42 +2,110 @@ import intake
 import numpy as np
 import pandas as pd
 import xarray as xr
-import time as timer
+import gc
+# import time as timer
 from haversine import haversine
 
-cesm1_catalog_url = 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json'
+catalog_url_dict = {
+        "CESM1": 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json',
+        "cesm1": 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json',
+        "CESM2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
+        "cesm2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
+    }
 
-def get_dsets(experiment, frequency, variable, catalog_url=cesm1_catalog_url):
+class load_clm_subgrid_info:
+    """This class is used for 1D to 3D conversion, for more information:
+    https://zhonghuazheng.com/UrbanClimateExplorer/notebooks/CESM2_subgrid_info.html 
+    """
+    def __init__(self, ds, subgrid_info):
+        self.ds = ds
+        self.time = self.ds.time
+        self.member_id = self.ds.member_id
+        self.subgrid_info = subgrid_info
+        self.lat = self.subgrid_info.lat
+        self.lon = self.subgrid_info.lon
+        self.ixy = self.subgrid_info.land1d_ixy
+        self.jxy = self.subgrid_info.land1d_jxy
+        self.ltype = self.subgrid_info.land1d_ityplunit
+        self.ltype_dict = {value:key for key, value in self.ds.attrs.items() if 'ltype_' in key.lower()}     
+    def get3d_var(self, clm_var_mask):
+        var = self.ds[clm_var_mask]
+        nmember = len(self.member_id.values)
+        nlat = len(self.lat.values)
+        nlon = len(self.lon.values)
+        ntim = len(self.time.values)
+        nltype = len(self.ltype_dict)
+        # create an empty array
+        gridded = np.full([nmember,ntim,nltype,nlat,nlon],np.nan)
+        # assign the values
+        gridded[:,
+                :,
+                self.ltype.values.astype(int) - 1, # Fortran arrays start at 1
+                self.jxy.values.astype(int) - 1,
+                self.ixy.values.astype(int) - 1] = var.values
+        grid_dims = xr.DataArray(gridded, dims=("member_id","time","ltype","lat","lon"))
+        grid_dims = grid_dims.assign_coords(member_id=self.member_id,
+                                            time=self.time,
+                                            ltype=[i for i in range(self.ltype.values.min(), 
+                                                                    self.ltype.values.max()+1)],
+                                            lat=self.lat.values,
+                                            lon=self.lon.values)
+        grid_dims.name = clm_var_mask
+        return grid_dims.to_dataset()
+
+def get_dsets(model, experiment, frequency, variable, forcing_variant=None):
     """This is a function for getting a dictionary of aggregate xarray datasets
 
     Parameters
     ----------
+    model: string
+        e.g., "CESM1"
     experiment : string
         e.g., "RCP85" (RCP 8.5 runs)
     frequency : string
         e.g., "daily" or "monthly"
     variable : a list of string
         e.g., ["TREFHT","TREFHTMX"]
-    catalog_url : string, optional
-        catalog URL, by default cesm1_catalog_url ('https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json')
+    forcing_variant: string
+        e.g., the biomass forcing variant, "cmip6" (the default in the cmip6 runs) or "smbb" (smoothed biomass burning), by default "cmip6
 
     Returns
     -------
     dictionary
         a dictionary of aggregate xarray datasets
     """
-    col = intake.open_esm_datastore(catalog_url) # open collection description file
-    col_subset = col.search(experiment=experiment, 
-                        frequency=frequency, 
-                        variable=variable)
+    catalog_url_dict = {
+        "CESM1": 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json',
+        "cesm1": 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json',
+        "CESM2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
+        "cesm2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
+    }
+
+    col = intake.open_esm_datastore(catalog_url_dict[model]) # open collection description file
+
+    if (model=="cesm1") or (model=="CESM1"): 
+        col_subset = col.search(experiment=experiment, 
+                            frequency=frequency, 
+                            variable=variable)
+    elif (model=="cesm2") or (model=="CESM2"):
+        col_subset = col.search(experiment=experiment, 
+                            frequency=frequency, 
+                            forcing_variant=forcing_variant,
+                            variable=variable)
+    else:
+        print("please type the model name")
+        return
+
     dsets = col_subset.to_dataset_dict(zarr_kwargs={"consolidated": True}, storage_options={"anon": True})
     return dsets
 
-def get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls, a_component="atm", l_component="lnd"):
+def get_cam_clm(model, experiment, frequency, member_id, time, cam_ls, clm_ls, forcing_variant=None, urban_type=None, a_component="atm", l_component="lnd"):
     """This is a function for getting CAM and CLM data
 
     Parameters
     ----------
+    model: string
+        e.g., "CESM1"
     experiment : string
         e.g., "RCP85" (RCP 8.5 runs)
     frequency : string
@@ -50,6 +118,10 @@ def get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls, a_compon
         CAM variables, e.g., ["TREFHT","TREFHTMX"]
     clm_ls : a list of string
         CLM variables, e.g., ["TREFMXAV_U"]
+    forcing_variant: string
+        e.g., the biomass forcing variant, "cmip6" (the default in the cmip6 runs) or "smbb" (smoothed biomass burning), by default "cmip6
+    urban_type: string
+        e.g., "tbd" (Tall Building District), "hd" (High Density), and "md" (Medium Density)
     a_component : str, optional
         component name of CAM, by default "atm"
     l_component : str, optional
@@ -60,12 +132,59 @@ def get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls, a_compon
     xarray.Dataset
         CAM dataset and CLM dataset
     """
-    
-    dsets = get_dsets(experiment=experiment, 
-                      frequency=frequency,
-                      variable=(cam_ls+clm_ls))
-    dsets_cam = dsets[a_component+"."+experiment+"."+frequency].sel(member_id=member_id, time=time)[cam_ls]
-    dsets_clm = dsets[l_component+"."+experiment+"."+frequency].sel(member_id=member_id, time=time)[clm_ls]
+
+    subgrid_info_path = "./CESM2_subgrid_info.nc"
+    clm_var = clm_ls[0] # CESM2 can only work on a single variable at this point. 
+    urban_type_dict = {"tbd":7, "hd":8, "md":9}
+
+
+    """
+    Tall Building District (tbd)
+    High Density (hd) Residential/Commerical/Industrial
+    Medium Density (md) Residential
+    """    
+
+    if (model=="cesm1") or (model=="CESM1"): 
+        dsets = get_dsets(model, 
+                          experiment=experiment, 
+                          frequency=frequency,
+                          variable=(cam_ls+clm_ls))
+        dsets_cam = dsets[a_component+"."+experiment+"."+frequency].sel(member_id=member_id, time=time)[cam_ls]
+        dsets_clm = dsets[l_component+"."+experiment+"."+frequency].sel(member_id=member_id, time=time)[clm_ls]
+
+    elif (model=="cesm2") or (model=="CESM2"):
+        dsets = get_dsets(model, 
+                          experiment=experiment, 
+                          frequency=frequency, 
+                          forcing_variant=forcing_variant,
+                          variable=(cam_ls+clm_ls))
+        
+        dsets_cam = dsets[a_component+"."+experiment+"."+frequency+"."+forcing_variant]\
+                         .sel(member_id=member_id, time=time)[cam_ls] 
+        dsets_clm_load = dsets[l_component+"."+experiment+"."+frequency+"."+forcing_variant]\
+                         .sel(member_id=member_id, time=time)[clm_ls]
+
+        # add the subgrid info
+        subgrid_info = xr.open_dataset(subgrid_info_path) 
+        
+        if np.array_equal(dsets_cam.lon, subgrid_info.lon) is False:
+            print("different lon between CAM and CLM subgrid info, adjust subgrid info's lon")
+            subgrid_info = subgrid_info.assign_coords(lon = dsets_cam.indexes['lon'])
+        if np.array_equal(dsets_cam.lat, subgrid_info.lat) is False:
+            print("different lat between CAM and CLM subgrid info, adjust subgrid info's lat")
+            subgrid_info = subgrid_info.assign_coords(lat = dsets_cam.indexes['lat'])
+        
+        dsets_clm_subgrid = load_clm_subgrid_info(dsets_clm_load, subgrid_info)
+        del dsets_clm_load, subgrid_info
+        gc.collect()
+
+        # select the urban type
+        dsets_clm = dsets_clm_subgrid.get3d_var(clm_var).sel(ltype=urban_type_dict[urban_type]).drop("ltype")
+        
+        # need to select "lev[-1]"" and drop "lev"
+        if ("lev" in dsets_cam.dims):
+            return dsets_cam.isel({"lev":-1}).drop("lev"), dsets_clm
+        
     return dsets_cam, dsets_clm
 
 def lon_to_180(ds):
@@ -110,10 +229,10 @@ def get_time_invariant_urban_mask(dsets, var, idx=0, arr_name="mask"):
 
     Parameters
     ----------
-    dsets : xarray.DataArray
+    dsets : xarray.DataSets
         _description_
     var : variable that we are interested in
-        _description_
+        e.g., TREFMXAV_U for CESM1
     idx : int, optional
         index of other dimensions, by default 0
     arr_name : str, optional
@@ -165,7 +284,7 @@ def closest(data, v):
     data : dict
         a dict of cities' lat and lon, from get_mask_cities
     v : dict
-        a dict of a city's lat and lon that we are interested in , e.g., {'lat': 40.1164, 'lon': -88.2434}
+        a dict of a city's lat and lon that we are interested in, e.g., {'lat': 40.1164, 'lon': -88.2434}
 
     Returns
     -------
@@ -177,11 +296,13 @@ def closest(data, v):
     return min(data, key=lambda p: haversine((v['lat'],v['lon']),(p['lat'],p['lon'])))
 
 # get nearst point
-def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, clm_var_mask, a_component="atm", l_component="lnd"):
+def get_data(model, city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, clm_var_mask=None, forcing_variant=None, urban_type=None, a_component="atm", l_component="lnd"):
     """_summary_
 
     Parameters
     ----------
+    model: string
+        e.g., "CESM1"
     city_loc : dict
         a dict of a city's lat and lon that we are interested in , e.g., {'lat': 40.1164, 'lon': -88.2434}
     experiment : string
@@ -209,11 +330,15 @@ def get_data(city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, c
 
     # get data
 #     t0 = timer.time()
-    dsets_cam, dsets_clm = get_cam_clm(experiment, frequency, member_id, time, cam_ls, clm_ls)
+    dsets_cam, dsets_clm = get_cam_clm(model, experiment, frequency, member_id, time, cam_ls, clm_ls, forcing_variant, urban_type, a_component, l_component)
+    # check if lat and lon are the same
+    assert np.array_equal(dsets_cam.lon, dsets_clm.lon)
+    assert np.array_equal(dsets_cam.lat, dsets_clm.lat)
 #     print(timer.time()-t0,": get data from AWS")
 
     # get urban mask based on dsets_clm, use the first element of clm_ls if not specified
 #     t0 = timer.time()
+    # if clm_var_mask is not defined
     if clm_var_mask is None:
         clm_var_mask = clm_ls[0]
     mask = get_time_invariant_urban_mask(dsets_clm, clm_var_mask, idx=0, arr_name="mask")
