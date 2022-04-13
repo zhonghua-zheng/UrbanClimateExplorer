@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example for CESM1" href="../notebooks/CESM1_demo.html" />
-    <link rel="prev" title="Urban Climate Explorer" href="../index.html" /> 
+    <link rel="prev" title="About" href="about.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +40,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Install and Run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install and Run</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install"><strong>Install</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run"><strong>Run</strong></a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
@@ -104,7 +109,8 @@
 </style>
 <section id="install-and-run">
 <h1>Install and Run<a class="headerlink" href="#install-and-run" title="Permalink to this headline"></a></h1>
-<p><strong>Install</strong>:</p>
+<section id="install">
+<h2><strong>Install</strong><a class="headerlink" href="#install" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>use conda to install the environment</p></li>
 </ul>
@@ -114,9 +120,11 @@ $ conda env create -f environment.yml
 $ conda activate aws_urban
 </pre></div>
 </div>
-<p><strong>Run</strong>:</p>
+</section>
+<section id="run">
+<h2><strong>Run</strong><a class="headerlink" href="#run" title="Permalink to this headline"></a></h2>
 <ul>
-<li><p>Locally:</p>
+<li><p>Locally</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ./UrbanClimateExplorer
 $ git pull
 $ <span class="nb">cd</span> ./docs/notebooks 
@@ -124,42 +132,43 @@ $ jupyter notebook
 </pre></div>
 </div>
 </li>
-<li><p>HPC:</p>
-<p>e.g., NCAR’s <a class="reference external" href="https://arc.ucar.edu/knowledge_base/70549550">Casper clusters</a> (using a GPU)</p>
-<p>First, create a bash script (see below), and name it as <code class="docutils literal notranslate"><span class="pre">aws_urban_env.sh</span></code>, put it in the same folder with your <code class="docutils literal notranslate"><span class="pre">UrbanClimateExplorer</span></code> folder.</p>
+<li><p>HPC (e.g., NCAR’s <a class="reference external" href="https://arc.ucar.edu/knowledge_base/70549550">Casper clusters</a> with a GPU)</p>
+<ul>
+<li><p>First, create a bash script (see below), and name it as <code class="docutils literal notranslate"><span class="pre">aws_urban_env.sh</span></code>, put it in the same folder with your <code class="docutils literal notranslate"><span class="pre">UrbanClimateExplorer</span></code> folder.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nb">source</span>  /glade/work/zhonghua/miniconda3/bin/activate aws_urban
 <span class="nb">echo</span> <span class="s2">&quot;ssh -N -L 8889:`hostname`:8889 </span><span class="nv">$USER</span><span class="s2">@`hostname`.ucar.edu&quot;</span>
 jupyter notebook --no-browser --ip<span class="o">=</span><span class="sb">`</span>hostname<span class="sb">`</span> --port<span class="o">=</span><span class="m">8889</span>
 </pre></div>
 </div>
-<p>Second, run the commands below</p>
+</li>
+<li><p>Second, run the commands below</p>
 <p>Note: please use <code class="docutils literal notranslate"><span class="pre">your</span> <span class="pre">own</span> <span class="pre">job</span> <span class="pre">code</span></code> instead of “UIUC0021”. You can find more information about <code class="docutils literal notranslate"><span class="pre">execcasper</span></code> <a class="reference external" href="https://arc.ucar.edu/knowledge_base/72581396">here</a></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ execcasper -A UIUC0021 -l <span class="nv">gpu_type</span><span class="o">=</span>v100 -l <span class="nv">walltime</span><span class="o">=</span><span class="m">06</span>:00:00 -l <span class="k">select</span><span class="o">=</span><span class="m">1</span>:ncpus<span class="o">=</span><span class="m">18</span>:mpiprocs<span class="o">=</span><span class="m">36</span>:ngpus<span class="o">=</span><span class="m">1</span>:mem<span class="o">=</span>100GB
 $ bash aws_urban_env.sh
 </pre></div>
 </div>
-<p>Thrid, launch a new terminal, copy and paste the command printed by the “echo” command, and log in. Then open your browser (e.g., Google Chrome), type <code class="docutils literal notranslate"><span class="pre">https://localhost:8889</span></code>.</p>
-<p>Note: Sometimes, “8889” may be used by others. In this case, adjust your bash script accordingly, e.g., from “8889” to “8892”:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="sb">```</span>bash
-<span class="c1">#!/bin/bash</span>
+</li>
+<li><p>Thrid, launch a new terminal, copy and paste the command printed by the “echo” command, and log in. Then open your browser (e.g., Google Chrome), type <code class="docutils literal notranslate"><span class="pre">https://localhost:8889</span></code>.</p>
+<p>Note: Sometimes port <code class="docutils literal notranslate"><span class="pre">8889</span></code> may be used by others. In this case, please adjust your bash script accordingly, e.g., from <code class="docutils literal notranslate"><span class="pre">8889</span></code> to <code class="docutils literal notranslate"><span class="pre">8892</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 <span class="nb">source</span>  /glade/work/zhonghua/miniconda3/bin/activate aws_urban
 <span class="nb">echo</span> <span class="s2">&quot;ssh -N -L 8889:`hostname`:8892 </span><span class="nv">$USER</span><span class="s2">@`hostname`.ucar.edu&quot;</span>
 jupyter notebook --no-browser --ip<span class="o">=</span><span class="sb">`</span>hostname<span class="sb">`</span> --port<span class="o">=</span><span class="m">8892</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </li>
 </ul>
+</li>
+</ul>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Urban Climate Explorer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about.html" class="btn btn-neutral float-left" title="About" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../notebooks/CESM1_demo.html" class="btn btn-neutral float-right" title="Example for CESM1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
