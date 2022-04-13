@@ -24,7 +24,7 @@ How to use it?
 --------------
 You may reproduce the jupyter notebook example on `Binder <https://mybinder.org/v2/gh/zzheng93/UrbanClimateExplorer/HEAD?labpath=docs%2Fnotebooks>`_.
 
-Please check `online documentation <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ (or `Read the Docs <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ version) for more information.
+Please check `online documentation <https://zhonghuazheng.com/UrbanClimateExplorer/>`_ (or `Read the Docs <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ version) for more information.
 
 How to ask for help?
 --------------------
