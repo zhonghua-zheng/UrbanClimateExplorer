@@ -29,6 +29,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :maxdepth: 2
    :caption: Overview
 
+   pages/about.md
    pages/install_run.md
 
 .. toctree::
@@ -46,7 +47,14 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    notebooks/CESM1_get_urban_areas_mask.ipynb
    notebooks/CESM2_subgrid_info.ipynb
 
-How to ask for help
--------------------
+How to ask for help?
+--------------------
 
 The `GitHub issue tracker <https://github.com/zzheng93/UrbanClimateExplorer/issues>`_ is the primary place for bug reports. 
+
+Acknowledgments
+---------------
+
+We thank AWS for providing AWS Cloud Credits for Research.
+
+We would like to acknowledge high-performance computing support from Cheyenne (`doi:10.5065/D6RX99HX <https://doi.org/10.5065/D6RX99HX>`_) provided by NCAR's Computational and Information Systems Laboratory, sponsored by the National Science Foundation.

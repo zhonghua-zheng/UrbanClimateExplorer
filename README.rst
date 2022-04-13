@@ -26,6 +26,12 @@ You may reproduce the jupyter notebook example on `Binder <https://mybinder.org/
 
 Please check `online documentation <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ (or `Read the Docs <https://urbanclimateexplorer.readthedocs.io/en/latest/>`_ version) for more information.
 
-How to ask for help
--------------------
+How to ask for help?
+--------------------
 The `GitHub issue tracker <https://github.com/zzheng93/UrbanClimateExplorer/issues>`_ is the primary place for bug reports. 
+
+Acknowledgments
+---------------
+We thank AWS for providing AWS Cloud Credits for Research.
+
+We would like to acknowledge high-performance computing support from Cheyenne (`doi:10.5065/D6RX99HX <https://doi.org/10.5065/D6RX99HX>`_) provided by NCAR's Computational and Information Systems Laboratory, sponsored by the National Science Foundation.
