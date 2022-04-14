@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This platform enables free and easy access to the **urban** climate simulations provided by [National Center for Atmospheric Research](https://ncar.ucar.edu/) and [Amazon Web Services (AWS)](https://aws.amazon.com/) via Cloud Computing. By providing the necessary information as the input, users can explore and utilize urban climate data (e.g., time, latitude, longitude, climate scenarios, etc.). Specifically, users can:
+This platform enables free and easy access to the **urban** climate simulations provided by [National Center for Atmospheric Research](https://ncar.ucar.edu/) and [Amazon Web Services (AWS)](https://aws.amazon.com/) via Cloud Computing. By providing the necessary information as the input (e.g., time, latitude, longitude, climate scenarios, etc.), users can explore and utilize urban climate data. Specifically, users can:
 
 - **visualize/analyze** urban climate of a particular city/cities under different climate change scenarios and different version model simulations (e.g., urban heat waves analysis)
 - **train** fast machine learning emulators of the urban climate (e.g., mapping from radiation to urban temperature) using a Automated Machine Learning tool ([FLAML](https://microsoft.github.io/FLAML/))
