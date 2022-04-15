@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About &mdash; Urban Climate Explorer 0.0.0 documentation</title>
+  <title>Setup &mdash; Urban Climate Explorer 0.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Install and Run" href="install_run.html" />
-    <link rel="prev" title="Urban Climate Explorer" href="../index.html" /> 
+    <link rel="next" title="Example for CESM1" href="../notebooks/CESM1_demo.html" />
+    <link rel="prev" title="Install and Run" href="install_run.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,18 +39,13 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">About</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#concept">Concept</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install_run.html">Install and Run</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM1_demo.html">Example for CESM1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../notebooks/CESM2_demo.html">Example for CESM2</a></li>
 </ul>
@@ -75,9 +70,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>About</li>
+      <li>Setup</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/pages/about.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/setup.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -109,33 +104,33 @@
     text-align: unset;
 }
 </style>
-<section id="about">
-<h1>About<a class="headerlink" href="#about" title="Permalink to this headline"></a></h1>
-<section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
-<p>This platform enables free and easy access to the <strong>urban</strong> climate simulations provided by <a class="reference external" href="https://ncar.ucar.edu/">National Center for Atmospheric Research</a> and <a class="reference external" href="https://aws.amazon.com/">Amazon Web Services (AWS)</a> via Cloud Computing. By providing the necessary information as the input (e.g., time, latitude, longitude, climate scenarios, etc.), users can explore and utilize urban climate data. Specifically, users can:</p>
+<section id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h1>
+<ul>
+<li><p>Step 1: Follow <a class="reference external" href="./install_run.html">Instal and Run</a> to launch a jupyter notebook locally or using HPC.</p></li>
+<li><p>Step 2: Open <code class="docutils literal notranslate"><span class="pre">config_cesm1.json</span></code> or <code class="docutils literal notranslate"><span class="pre">config_cesm2.json</span></code>.</p>
+<p><img alt="load_JSON" src="../_images/load_JSON.png" /></p>
+</li>
+<li><p>Step 3: If you are not familiar with CESM1 or CESM2, you can just edit <code class="docutils literal notranslate"><span class="pre">city_loc</span></code> and <code class="docutils literal notranslate"><span class="pre">time_start</span></code> and <code class="docutils literal notranslate"><span class="pre">time_end</span></code>.</p>
 <ul class="simple">
-<li><p><strong>visualize/analyze</strong> urban climate of a particular city/cities under different climate change scenarios and different version model simulations (e.g., urban heat waves analysis)</p></li>
-<li><p><strong>train</strong> fast machine learning emulators of the urban climate (e.g., mapping from radiation to urban temperature) using a Automated Machine Learning tool (<a class="reference external" href="https://microsoft.github.io/FLAML/">FLAML</a>)</p></li>
-<li><p><strong>apply</strong> the machine learning emulators to users’ own data to create customized urban climate projections for their own needs</p></li>
+<li><p>Please check <a class="reference external" href="../notebooks/how_to_create_a_json_file.html">here</a> for more information about JSON file.</p></li>
 </ul>
-</section>
-<section id="concept">
-<h2>Concept<a class="headerlink" href="#concept" title="Permalink to this headline"></a></h2>
-<p><img alt="concept" src="../_images/concept.png" /></p>
-</section>
-<section id="workflow">
-<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline"></a></h2>
-<p><img alt="workflow" src="../_images/workflow.png" /></p>
-</section>
+</li>
+<li><p>Step 4: Save the JSON file</p>
+<p><img alt="save_JSON" src="../_images/save_JSON.png" /></p>
+</li>
+<li><p>Step 5: Open <code class="docutils literal notranslate"><span class="pre">CESM1_demo.ipynb</span></code> or <code class="docutils literal notranslate"><span class="pre">CESM2_demo.ipynb</span></code>, depends on which JSON you have edited. Now you are all set!</p>
+<p><img alt="load_notebook" src="../_images/load_notebook.png" /></p>
+</li>
+</ul>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../index.html" class="btn btn-neutral float-left" title="Urban Climate Explorer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="install_run.html" class="btn btn-neutral float-right" title="Install and Run" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="install_run.html" class="btn btn-neutral float-left" title="Install and Run" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../notebooks/CESM1_demo.html" class="btn btn-neutral float-right" title="Example for CESM1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
