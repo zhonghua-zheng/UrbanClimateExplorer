@@ -36,6 +36,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :maxdepth: 2
    :caption: Tutorial
 
+   pages/setup.md
    notebooks/CESM1_demo.ipynb
    notebooks/CESM2_demo.ipynb
 
