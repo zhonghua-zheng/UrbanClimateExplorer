@@ -14,7 +14,8 @@
    "metadata": {},
    "source": [
     "Reference:       \n",
-    "- GitHub: https://github.com/ncar/cesm-lens-aws/   \n",
+    "- GitHub: https://github.com/ncar/cesm-lens-aws/    \n",
+    "- Data/Variables Information: https://ncar.github.io/cesm-lens-aws/#data-catalog       \n",
     "- Reproduce CESM-LENS: http://gallery.pangeo.io/repos/NCAR/cesm-lens-aws/notebooks/kay-et-al-2015.v3.html    "
    ]
   },
