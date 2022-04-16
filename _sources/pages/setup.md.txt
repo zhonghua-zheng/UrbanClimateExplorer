@@ -1,6 +1,6 @@
 ## Setup
 
-- Step 1: Follow [Instal and Run](./install_run.html) to launch a jupyter notebook locally or using HPC.
+- Step 1: Follow [Install and Run](./install_run.html) to launch a jupyter notebook locally or using HPC.
 
 - Step 2: Open `config_cesm1.json` or `config_cesm2.json`.
 
