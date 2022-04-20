@@ -21,7 +21,7 @@ copyright = '2022, Zhonghua Zheng'
 author = 'Zhonghua Zheng'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.0'
+release = 'v0.0.1'
 
 
 # -- General configuration ---------------------------------------------------

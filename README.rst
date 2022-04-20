@@ -1,7 +1,10 @@
 Urban Climate Explorer
 =======================================================================
 
-|docs| |GitHub| |binder| |license|
+|doi| |docs| |GitHub| |binder| |license|
+
+.. |doi| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.6474004.svg
+   :target: https://doi.org/10.5281/zenodo.6474004
 
 .. |docs| image:: https://readthedocs.org/projects/urbanclimateexplorer/badge/?version=latest
    :target: https://urbanclimateexplorer.readthedocs.io/en/latest/?badge=latest
