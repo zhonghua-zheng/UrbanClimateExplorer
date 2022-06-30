@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -54,6 +55,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="CESM2_demo.html">Example for CESM2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM2_to_CMIP6.html">Example for CMIP6</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -301,6 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -309,10 +312,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -324,12 +331,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -357,7 +367,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="Example-for-CESM1">
-<h1>Example for CESM1<a class="headerlink" href="#Example-for-CESM1" title="Permalink to this headline"></a></h1>
+<h1>Example for CESM1<a class="headerlink" href="#Example-for-CESM1" title="Permalink to this heading"></a></h1>
 <div class="line-block">
 <div class="line">Reference:</div>
 <div class="line">- GitHub: <a class="reference external" href="https://github.com/ncar/cesm-lens-aws/">https://github.com/ncar/cesm-lens-aws/</a></div>
@@ -477,7 +487,7 @@ Wall time: 42.2 s
 </pre></div></div>
 </div>
 <section id="Step-1:-data-analysis">
-<h2>Step 1: data analysis<a class="headerlink" href="#Step-1:-data-analysis" title="Permalink to this headline"></a></h2>
+<h2>Step 1: data analysis<a class="headerlink" href="#Step-1:-data-analysis" title="Permalink to this heading"></a></h2>
 <p><strong>xarray.Dataset</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -1076,7 +1086,7 @@ VBOT</dd><dt><span>source :</span></dt><dd>CAM</dd><dt><span>Conventions :</span
 </div>
 </section>
 <section id="Step-2:-automated-machine-learning">
-<h2>Step 2: automated machine learning<a class="headerlink" href="#Step-2:-automated-machine-learning" title="Permalink to this headline"></a></h2>
+<h2>Step 2: automated machine learning<a class="headerlink" href="#Step-2:-automated-machine-learning" title="Permalink to this heading"></a></h2>
 <p><strong>train a model (emulator)</strong></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:

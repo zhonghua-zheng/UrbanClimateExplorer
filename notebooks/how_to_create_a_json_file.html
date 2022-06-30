@@ -14,6 +14,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -22,7 +23,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="How to create a mask for CESM1’s “urban areas”?" href="CESM1_get_urban_areas_mask.html" />
-    <link rel="prev" title="Example for CESM2" href="CESM2_demo.html" /> 
+    <link rel="prev" title="Example for CMIP6" href="CESM2_to_CMIP6.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,6 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../pages/setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html">Example for CESM1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="CESM2_demo.html">Example for CESM2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CESM2_to_CMIP6.html">Example for CMIP6</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -297,6 +299,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -305,10 +308,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -320,12 +327,15 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
@@ -353,7 +363,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <section id="How-to-create-a-JSON-file?">
-<h1>How to create a JSON file?<a class="headerlink" href="#How-to-create-a-JSON-file?" title="Permalink to this headline"></a></h1>
+<h1>How to create a JSON file?<a class="headerlink" href="#How-to-create-a-JSON-file?" title="Permalink to this heading"></a></h1>
 <p>JSON is an open standard file format an data interchange format that uses human-readable text to store and transmit data object.</p>
 <ul class="simple">
 <li><p>You can click <a class="reference external" href="https://en.wikipedia.org/wiki/JSON">here</a> to find more information of JSON.</p></li>
@@ -536,7 +546,7 @@ label: a list of string (currently we only support a single element within the l
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CESM2_demo.html" class="btn btn-neutral float-left" title="Example for CESM2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="CESM2_to_CMIP6.html" class="btn btn-neutral float-left" title="Example for CMIP6" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="CESM1_get_urban_areas_mask.html" class="btn btn-neutral float-right" title="How to create a mask for CESM1’s “urban areas”?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
