@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="How to create a JSON file?" href="how_to_create_a_json_file.html" />
-    <link rel="prev" title="Example for CESM2" href="CESM2_demo.html" /> 
+    <link rel="next" title="Example for CESM2 Climate Change" href="demo_CESM2_climate_change.html" />
+    <link rel="prev" title="Example for CESM2" href="demo_CESM2.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,8 +49,8 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../pages/setup.html">Setup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CESM1_demo.html">Example for CESM1</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CESM2_demo.html">Example for CESM2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_CESM1.html">Example for CESM1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo_CESM2.html">Example for CESM2</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Example for CMIP6</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Step-1:-load-CESM2-data">Step 1: load CESM2 data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Step-2:-load-CMIP6-data">Step 2: load CMIP6 data</a></li>
@@ -59,6 +59,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#Step-5:-visualization">Step 5: visualization</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="demo_CESM2_climate_change.html">Example for CESM2 Climate Change</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -83,7 +84,7 @@
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Example for CMIP6</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/notebooks/CESM2_to_CMIP6.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notebooks/demo_CESM2_to_CMIP6.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -401,13 +402,13 @@ div.rendered_html tbody tr:hover {
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./config_cmip6.json&quot;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">load_f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./config_cesm2_cmip6.json&quot;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">load_f</span><span class="p">:</span>
 <span class="c1">#     param = json.loads(json.load(load_f))</span>
     <span class="n">param</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">load_f</span><span class="p">)</span>
 
     <span class="n">model</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="c1"># cesm2</span>
     <span class="n">urban_type</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;urban_type&quot;</span><span class="p">]</span> <span class="c1"># md</span>
-    <span class="n">city_loc</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;city_loc&quot;</span><span class="p">]</span> <span class="c1"># {&quot;lat&quot;: 40.1164, &quot;lon&quot;: -88.2434}</span>
+    <span class="n">city_loc</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;city_loc&quot;</span><span class="p">]</span> <span class="c1"># {&quot;lat&quot;: 40.0150, &quot;lon&quot;: -105.2705}</span>
     <span class="n">l_component</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;l_component&quot;</span><span class="p">]</span>
     <span class="n">a_component</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;a_component&quot;</span><span class="p">]</span>
     <span class="n">experiment</span> <span class="o">=</span> <span class="n">param</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">]</span>
@@ -433,19 +434,19 @@ div.rendered_html tbody tr:hover {
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-/glade/work/zhonghua/miniconda3/envs/aws_urban/lib/python3.8/site-packages/xgboost/compat.py:31: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
-  from pandas import MultiIndex, Int64Index
+CPU times: user 1.84 s, sys: 350 ms, total: 2.19 s
+Wall time: 2.19 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
+<div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-CPU times: user 2.17 s, sys: 508 ms, total: 2.68 s
-Wall time: 20 s
+/glade/work/zhonghua/miniconda3/envs/aws_urban/lib/python3.8/site-packages/xgboost/compat.py:31: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import MultiIndex, Int64Index
 </pre></div></div>
 </div>
 <section id="Step-1:-load-CESM2-data">
@@ -567,48 +568,48 @@ different lat between CAM and CLM subgrid info, adjust subgrid info&#39;s lat
   <tbody>
     <tr>
       <th>4253</th>
-      <td>6.419122e-06</td>
-      <td>6.332497e-13</td>
-      <td>101513.539062</td>
-      <td>310.400116</td>
-      <td>314.549225</td>
-      <td>306.138733</td>
+      <td>5.120080e-05</td>
+      <td>1.210190e-18</td>
+      <td>102141.148438</td>
+      <td>297.131683</td>
+      <td>305.057770</td>
+      <td>291.910309</td>
     </tr>
     <tr>
       <th>712</th>
-      <td>7.805734e-13</td>
-      <td>8.284239e-17</td>
-      <td>101903.125000</td>
-      <td>278.464813</td>
-      <td>283.987000</td>
-      <td>275.175720</td>
+      <td>8.689989e-06</td>
+      <td>4.476514e-06</td>
+      <td>102655.820312</td>
+      <td>273.535492</td>
+      <td>277.919128</td>
+      <td>270.931824</td>
     </tr>
     <tr>
       <th>4174</th>
-      <td>7.417410e-07</td>
-      <td>1.203946e-20</td>
-      <td>101324.992188</td>
-      <td>305.829956</td>
-      <td>313.299652</td>
-      <td>299.684784</td>
+      <td>5.766846e-05</td>
+      <td>2.315565e-14</td>
+      <td>101171.445312</td>
+      <td>297.524048</td>
+      <td>305.175293</td>
+      <td>290.375336</td>
     </tr>
     <tr>
       <th>1811</th>
-      <td>4.202696e-07</td>
-      <td>5.546324e-21</td>
-      <td>100377.546875</td>
-      <td>281.041534</td>
-      <td>282.307190</td>
-      <td>280.259918</td>
+      <td>8.906457e-07</td>
+      <td>7.931703e-07</td>
+      <td>101316.953125</td>
+      <td>271.924591</td>
+      <td>277.630005</td>
+      <td>269.025482</td>
     </tr>
     <tr>
       <th>5097</th>
-      <td>6.212562e-15</td>
-      <td>6.212559e-15</td>
-      <td>102881.742188</td>
-      <td>269.700897</td>
-      <td>270.963928</td>
-      <td>268.582184</td>
+      <td>4.478946e-08</td>
+      <td>4.477884e-08</td>
+      <td>101735.164062</td>
+      <td>270.995270</td>
+      <td>275.632812</td>
+      <td>269.006317</td>
     </tr>
   </tbody>
 </table>
@@ -642,23 +643,23 @@ different lat between CAM and CLM subgrid info, adjust subgrid info&#39;s lat
   <tbody>
     <tr>
       <th>4253</th>
-      <td>314.797455</td>
+      <td>305.300262</td>
     </tr>
     <tr>
       <th>712</th>
-      <td>285.461212</td>
+      <td>279.708527</td>
     </tr>
     <tr>
       <th>4174</th>
-      <td>313.943756</td>
+      <td>306.675201</td>
     </tr>
     <tr>
       <th>1811</th>
-      <td>282.506958</td>
+      <td>278.521729</td>
     </tr>
     <tr>
       <th>5097</th>
-      <td>271.706543</td>
+      <td>276.521973</td>
     </tr>
   </tbody>
 </table>
@@ -728,8 +729,8 @@ different lat between CAM and CLM subgrid info, adjust subgrid info&#39;s lat
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 8.62 s, sys: 579 ms, total: 9.2 s
-Wall time: 16.7 s
+CPU times: user 8.71 s, sys: 973 ms, total: 9.69 s
+Wall time: 17 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -758,18 +759,18 @@ Wall time: 16.7 s
      tasmax     (member_id, time, lat, lon) float32 dask.array&lt;chunksize=(1, 420, 180, 288), meta=np.ndarray&gt;
      tasmin     (member_id, time, lat, lon) float32 dask.array&lt;chunksize=(1, 415, 180, 288), meta=np.ndarray&gt;
  Attributes: (12/48)
-     parent_experiment_id:    historical
      references:              see further_info_url attribute
-     activity_id:             ScenarioMIP
-     parent_variant_label:    r1i1p1f1
-     initialization_index:    1
-     experiment:              gap-filling scenario reaching 7.0 based on SSP3
+     realm:                   atmos
+     parent_time_units:       days since 1850-1-1
+     sub_experiment:          none
+     forcing_index:           1
+     grid_label:              gr1
      ...                      ...
-     comment:                 &lt;null ref&gt;
+     parent_variant_label:    r1i1p1f1
+     license:                 CMIP6 model data produced by NOAA-GFDL is licens...
+     parent_mip_era:          CMIP6
      parent_activity_id:      CMIP
-     source_id:               GFDL-ESM4
      title:                   NOAA GFDL GFDL-ESM4 model output prepared for CM...
-     source:                  GFDL-ESM4 (2018):\natmos: GFDL-AM4.1 (Cubed-sphe...
      intake_esm_dataset_key:  ScenarioMIP.NOAA-GFDL.GFDL-ESM4.ssp370.day.gr1}
 </pre></div></div>
 </div>
@@ -796,8 +797,8 @@ Wall time: 16.7 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-CPU times: user 22.8 s, sys: 9.92 s, total: 32.7 s
-Wall time: 17.8 s
+CPU times: user 20.3 s, sys: 11 s, total: 31.3 s
+Wall time: 18.5 s
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -840,70 +841,70 @@ Wall time: 17.8 s
     <tr>
       <th>0</th>
       <td>2081-01-02 12:00:00</td>
-      <td>1.298217e-08</td>
-      <td>0.000000e+00</td>
-      <td>101977.695312</td>
-      <td>273.261047</td>
-      <td>275.202179</td>
-      <td>270.915100</td>
+      <td>4.284881e-11</td>
+      <td>1.210498e-13</td>
+      <td>101005.351562</td>
+      <td>267.040985</td>
+      <td>274.020386</td>
+      <td>264.221344</td>
       <td>40.5</td>
-      <td>271.875</td>
+      <td>254.375</td>
       <td>r1i1p1f1</td>
       <td>2.0</td>
     </tr>
     <tr>
       <th>1</th>
       <td>2081-01-03 12:00:00</td>
-      <td>2.697389e-06</td>
-      <td>3.237360e-08</td>
-      <td>102718.125000</td>
-      <td>272.662384</td>
-      <td>275.534607</td>
-      <td>269.958557</td>
+      <td>1.998000e-06</td>
+      <td>6.424573e-07</td>
+      <td>100812.898438</td>
+      <td>272.238739</td>
+      <td>275.491943</td>
+      <td>270.209229</td>
       <td>40.5</td>
-      <td>271.875</td>
+      <td>254.375</td>
       <td>r1i1p1f1</td>
       <td>2.0</td>
     </tr>
     <tr>
       <th>2</th>
       <td>2081-01-04 12:00:00</td>
-      <td>1.689230e-05</td>
-      <td>0.000000e+00</td>
-      <td>101962.062500</td>
-      <td>279.614990</td>
-      <td>284.833435</td>
-      <td>275.647797</td>
+      <td>1.482927e-05</td>
+      <td>8.858435e-06</td>
+      <td>100455.796875</td>
+      <td>273.498535</td>
+      <td>274.920624</td>
+      <td>271.907166</td>
       <td>40.5</td>
-      <td>271.875</td>
+      <td>254.375</td>
       <td>r1i1p1f1</td>
       <td>2.0</td>
     </tr>
     <tr>
       <th>3</th>
       <td>2081-01-05 12:00:00</td>
-      <td>4.039772e-05</td>
-      <td>0.000000e+00</td>
-      <td>101191.835938</td>
-      <td>286.547546</td>
-      <td>287.837524</td>
-      <td>284.678497</td>
+      <td>6.613790e-06</td>
+      <td>5.915619e-06</td>
+      <td>101060.375000</td>
+      <td>271.265442</td>
+      <td>273.210297</td>
+      <td>269.065277</td>
       <td>40.5</td>
-      <td>271.875</td>
+      <td>254.375</td>
       <td>r1i1p1f1</td>
       <td>2.0</td>
     </tr>
     <tr>
       <th>4</th>
       <td>2081-01-06 12:00:00</td>
-      <td>8.000434e-05</td>
-      <td>0.000000e+00</td>
-      <td>101059.062500</td>
-      <td>283.049957</td>
-      <td>286.511383</td>
-      <td>278.161652</td>
+      <td>9.097347e-06</td>
+      <td>6.341099e-06</td>
+      <td>100795.867188</td>
+      <td>272.010651</td>
+      <td>276.695343</td>
+      <td>269.123260</td>
       <td>40.5</td>
-      <td>271.875</td>
+      <td>254.375</td>
       <td>r1i1p1f1</td>
       <td>2.0</td>
     </tr>
@@ -922,10 +923,11 @@ Wall time: 17.8 s
 <span class="n">idx</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
-    <span class="n">X_train</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">kde</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    <span class="n">df_cmip</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">kde</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">X_train</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">kde</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CESM&quot;</span><span class="p">)</span>
+    <span class="n">df_cmip</span><span class="p">[</span><span class="n">var</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">kde</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;CMIP&quot;</span><span class="p">)</span>
     <span class="n">idx</span><span class="o">+=</span><span class="mi">1</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -935,7 +937,7 @@ Wall time: 17.8 s
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM2_to_CMIP6_12_0.png" src="../_images/notebooks_CESM2_to_CMIP6_12_0.png" />
+<img alt="../_images/notebooks_demo_CESM2_to_CMIP6_12_0.png" src="../_images/notebooks_demo_CESM2_to_CMIP6_12_0.png" />
 </div>
 </div>
 </section>
@@ -968,13 +970,10 @@ Wall time: 17.8 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-LGBMRegressor(colsample_bytree=0.6649148062238498,
-              learning_rate=0.17402065726724145, max_bin=255,
-              min_child_samples=3, n_estimators=58, num_leaves=15,
-              reg_alpha=0.0009765625, reg_lambda=0.006761362450996487,
-              verbose=-1)
-CPU times: user 29min 41s, sys: 5.55 s, total: 29min 47s
-Wall time: 29.9 s
+ExtraTreesRegressor(max_features=0.9591245274694429, max_leaf_nodes=426,
+                    n_estimators=125, n_jobs=-1)
+CPU times: user 2min 1s, sys: 2.9 s, total: 2min 4s
+Wall time: 15.2 s
 </pre></div></div>
 </div>
 <p><strong>evaluate the model</strong></p>
@@ -995,8 +994,8 @@ Wall time: 29.9 s
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-root mean square error: 0.593
-r2: 0.998
+root mean square error: 0.636
+r2: 0.997
 </pre></div></div>
 </div>
 <div class="line-block">
@@ -1050,7 +1049,7 @@ r2: 0.998
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM2_to_CMIP6_21_0.png" src="../_images/notebooks_CESM2_to_CMIP6_21_0.png" />
+<img alt="../_images/notebooks_demo_CESM2_to_CMIP6_21_0.png" src="../_images/notebooks_demo_CESM2_to_CMIP6_21_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1073,7 +1072,7 @@ r2: 0.998
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM2_to_CMIP6_22_0.png" src="../_images/notebooks_CESM2_to_CMIP6_22_0.png" />
+<img alt="../_images/notebooks_demo_CESM2_to_CMIP6_22_0.png" src="../_images/notebooks_demo_CESM2_to_CMIP6_22_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1085,11 +1084,11 @@ r2: 0.998
 <span class="n">y</span> <span class="o">=</span> <span class="n">df_cmip</span><span class="p">[</span><span class="s2">&quot;TREFMXAV&quot;</span><span class="p">]</span><span class="o">-</span><span class="n">df_cmip</span><span class="p">[</span><span class="s2">&quot;tasmax&quot;</span><span class="p">]</span>
 
 <span class="n">plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot_r&#39;</span><span class="p">,</span> <span class="n">n_levels</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">)</span>
 <span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;CESM&quot;</span><span class="p">)</span>
 <span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;CMIP&quot;</span><span class="p">)</span>
-<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">ax_joint</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">],</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1098,7 +1097,7 @@ r2: 0.998
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_CESM2_to_CMIP6_23_0.png" src="../_images/notebooks_CESM2_to_CMIP6_23_0.png" />
+<img alt="../_images/notebooks_demo_CESM2_to_CMIP6_23_0.png" src="../_images/notebooks_demo_CESM2_to_CMIP6_23_0.png" />
 </div>
 </div>
 </section>
@@ -1108,8 +1107,8 @@ r2: 0.998
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="CESM2_demo.html" class="btn btn-neutral float-left" title="Example for CESM2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="how_to_create_a_json_file.html" class="btn btn-neutral float-right" title="How to create a JSON file?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="demo_CESM2.html" class="btn btn-neutral float-left" title="Example for CESM2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="demo_CESM2_climate_change.html" class="btn btn-neutral float-right" title="Example for CESM2 Climate Change" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

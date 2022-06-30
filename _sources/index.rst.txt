@@ -40,9 +40,10 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    :caption: Tutorial
 
    pages/setup.md
-   notebooks/CESM1_demo.ipynb
-   notebooks/CESM2_demo.ipynb
-   notebooks/CESM2_to_CMIP6.ipynb
+   notebooks/demo_CESM1.ipynb
+   notebooks/demo_CESM2.ipynb
+   notebooks/demo_CESM2_to_CMIP6.ipynb
+   notebooks/demo_CESM2_climate_change.ipynb
 
 .. toctree::
    :maxdepth: 2
