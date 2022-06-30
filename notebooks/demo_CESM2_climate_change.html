@@ -53,7 +53,7 @@
 <li class="toctree-l1"><a class="reference internal" href="demo_CESM2.html">Example for CESM2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="demo_CESM2_to_CMIP6.html">Example for CMIP6</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Example for CESM2 Climate Change</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#Step-1:-load-future-data-(2081-01-02-to-2100-12-31)">Step 1: load future data (2081-01-02 to 2100-12-31)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Step-1:-load-future-data-(2066-01-02-to-2085-12-31)">Step 1: load future data (2066-01-02 to 2085-12-31)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Step-2:-load-present-data-(2016-01-02-to-2035-12-31)">Step 2: load present data (2016-01-02 to 2035-12-31)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Step-3:-compare-future-and-present-training-data">Step 3: compare future and present training data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Step-4:-automated-machine-learning">Step 4: automated machine learning</a></li>
@@ -371,6 +371,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <section id="Example-for-CESM2-Climate-Change">
 <h1>Example for CESM2 Climate Change<a class="headerlink" href="#Example-for-CESM2-Climate-Change" title="Permalink to this heading"></a></h1>
+<p>Here, we load present (2016-01-02 to 2035-12-31) and future (2066-01-02 to 2085-12-31) data, and evaluate the applicability of a machine learning model trained on the present climate for predicting future urban climate.</p>
 <p><strong>NOTE</strong>: Compared to the CESM1 demo, here “Q” (QBOT), “U” (UBOT) and “V” (VBOT) are not included. When the bottom “lev” of “Q”, “U”, and “V” are merged, there is an issue.</p>
 <div class="line-block">
 <div class="line">Reference:</div>
@@ -420,8 +421,8 @@ Wall time: 2.1 s
   from pandas import MultiIndex, Int64Index
 </pre></div></div>
 </div>
-<section id="Step-1:-load-future-data-(2081-01-02-to-2100-12-31)">
-<h2>Step 1: load future data (2081-01-02 to 2100-12-31)<a class="headerlink" href="#Step-1:-load-future-data-(2081-01-02-to-2100-12-31)" title="Permalink to this heading"></a></h2>
+<section id="Step-1:-load-future-data-(2066-01-02-to-2085-12-31)">
+<h2>Step 1: load future data (2066-01-02 to 2085-12-31)<a class="headerlink" href="#Step-1:-load-future-data-(2066-01-02-to-2085-12-31)" title="Permalink to this heading"></a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
