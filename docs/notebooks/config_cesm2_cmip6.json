@@ -2,8 +2,8 @@
     "model": "cesm2",
     "urban_type": "md",
     "city_loc": {
-        "lat": 40.1164,
-        "lon": -88.2434
+        "lat": 40.0150,
+        "lon": -105.2705
     },
     "l_component": "lnd",
     "a_component": "atm",
