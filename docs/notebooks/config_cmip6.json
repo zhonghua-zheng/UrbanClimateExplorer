@@ -1,0 +1,54 @@
+{
+    "model": "cesm2",
+    "urban_type": "md",
+    "city_loc": {
+        "lat": 40.1164,
+        "lon": -88.2434
+    },
+    "l_component": "lnd",
+    "a_component": "atm",
+    "experiment": "ssp370",
+    "frequency": "daily",
+    "cam_ls": [
+        "PRECC", 
+        "PRECL", 
+        "PRECSC", 
+        "PRECSL",
+        "PSL",
+        "TREFHT",
+        "TREFHTMN",
+        "TREFHTMX"
+    ],
+    "clm_ls": [
+        "TREFMXAV"
+    ],
+    "forcing_variant": "cmip6",
+    "time_start": "2081-01-02",
+    "time_end": "2100-12-31",
+    "member_id": [
+        "r1i1231p1f1"
+    ],
+    "estimator_list": [
+        "lgbm",
+        "xgboost",
+        "rf",
+        "extra_tree"
+    ],
+    "time_budget": 15,
+    "features":[
+        "pr",
+        "prsn",
+        "psl",
+        "tas",
+        "tasmax",
+        "tasmin"
+    ],
+    "label": [
+        "TREFMXAV"
+    ],
+    "CMIP6_url": "https://cmip6-pds.s3.amazonaws.com/pangeo-cmip6.json",
+    "activity_id": "ScenarioMIP",
+    "experiment_id": "ssp370",
+    "institution_id": "NOAA-GFDL",
+    "table_id": "day"
+}

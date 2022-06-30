@@ -42,6 +42,7 @@ Author: `Dr. Zhonghua Zheng <https://zzheng93.github.io/>`_
    pages/setup.md
    notebooks/CESM1_demo.ipynb
    notebooks/CESM2_demo.ipynb
+   notebooks/CESM2_to_CMIP6.ipynb
 
 .. toctree::
    :maxdepth: 2
