@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Use sklearn for haversine distance calculation &mdash; Urban Climate Explorer v0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Urban Climate Explorer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/about.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/install_run.html">Install and Run</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo_CESM1.html">Example for CESM1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo_CESM2.html">Example for CESM2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo_CESM2_to_CMIP6.html">Example for CMIP6</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../demo_CESM2_climate_change.html">Example for CESM2 Climate Change</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../how_to_create_a_json_file.html">How to create a JSON file?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CESM1_get_urban_areas_mask.html">How to create a mask for CESM1’s “urban areas”?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CESM2_subgrid_info.html">How to create a subgrid info file for CESM2’s CLM processing?</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Urban Climate Explorer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Use sklearn for haversine distance calculation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/notebooks/mis/haversine_from_sklearn.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Use-sklearn-for-haversine-distance-calculation">
+<h1>Use sklearn for haversine distance calculation<a class="headerlink" href="#Use-sklearn-for-haversine-distance-calculation" title="Permalink to this heading"></a></h1>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">haversine</span> <span class="kn">import</span> <span class="n">haversine</span><span class="p">,</span> <span class="n">Unit</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">haversine_distances</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># results from the haversine package</span>
+<span class="n">lyon</span> <span class="o">=</span> <span class="p">(</span><span class="mf">45.7597</span><span class="p">,</span> <span class="mf">4.8422</span><span class="p">)</span> <span class="c1"># (lat, lon)</span>
+<span class="n">paris</span> <span class="o">=</span> <span class="p">(</span><span class="mf">48.8567</span><span class="p">,</span> <span class="mf">2.3508</span><span class="p">)</span>
+<span class="n">haversine</span><span class="p">(</span><span class="n">lyon</span><span class="p">,</span> <span class="n">paris</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+392.2172595594006
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># results from the sklearn package, based on</span>
+<span class="c1"># https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.haversine_distances.html</span>
+<span class="n">lyon</span> <span class="o">=</span> <span class="p">[</span><span class="mf">45.7597</span><span class="p">,</span> <span class="mf">4.8422</span><span class="p">]</span>
+<span class="n">paris</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.8567</span><span class="p">,</span> <span class="mf">2.3508</span><span class="p">]</span>
+<span class="n">lyon_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">lyon</span><span class="p">]</span>
+<span class="n">paris_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">paris</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">lyon_in_radians</span><span class="p">,</span> <span class="n">paris_in_radians</span><span class="p">])</span>
+<span class="c1"># multiply by Earth radius to get kilometers</span>
+<span class="c1"># provided by https://github.com/mapado/haversine/blob/main/haversine/haversine.py</span>
+<span class="n">result</span> <span class="o">*</span> <span class="mf">6371008.8</span><span class="o">/</span><span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  0.        , 392.21725956],
+       [392.21725956,   0.        ]])
+</pre></div></div>
+</div>
+<section id="haversine-package">
+<h2>haversine package<a class="headerlink" href="#haversine-package" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://pypi.org/project/haversine/">https://pypi.org/project/haversine/</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using 359 for lon doesn&#39;t work</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">)</span> <span class="c1"># (lat, lon)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">haversine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[4], line 4</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> a <span style="color: rgb(98,98,98)">=</span> (<span style="color: rgb(98,98,98)">0</span>, <span style="color: rgb(98,98,98)">359</span>) <span style="color: rgb(95,135,135)"># (lat, lon)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> b <span style="color: rgb(98,98,98)">=</span> (<span style="color: rgb(98,98,98)">0</span>, <span style="color: rgb(98,98,98)">1</span>)
+<span class="ansi-green-fg">----&gt; 4</span> <span class="ansi-yellow-bg">haversine</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">b</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-fg">~/miniconda3/lib/python3.10/site-packages/haversine/haversine.py:218</span>, in <span class="ansi-cyan-fg">haversine</span><span class="ansi-blue-fg">(point1, point2, unit, normalize, check)</span>
+<span class="ansi-green-intense-fg ansi-bold">    216</span>     lat2, lng2 <span style="color: rgb(98,98,98)">=</span> _normalize(lat2, lng2)
+<span class="ansi-green-intense-fg ansi-bold">    217</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> check:
+<span class="ansi-green-fg">--&gt; 218</span>     <span class="ansi-yellow-bg">_ensure_lat_lon</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">lat1</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">lng1</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    219</span>     _ensure_lat_lon(lat2, lng2)
+<span class="ansi-green-intense-fg ansi-bold">    221</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> get_avg_earth_radius(unit) <span style="color: rgb(98,98,98)">*</span> _haversine_kernel(lat1, lng1, lat2, lng2)
+
+File <span class="ansi-green-fg">~/miniconda3/lib/python3.10/site-packages/haversine/haversine.py:95</span>, in <span class="ansi-cyan-fg">_ensure_lat_lon</span><span class="ansi-blue-fg">(lat, lon)</span>
+<span class="ansi-green-intense-fg ansi-bold">     93</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Latitude </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>lat<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)"> is out of range [-90, 90]</span><span style="color: rgb(175,0,0)">&#34;</span>)
+<span class="ansi-green-intense-fg ansi-bold">     94</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> lon <span style="color: rgb(98,98,98)">&lt;</span> <span style="color: rgb(98,98,98)">-</span><span style="color: rgb(98,98,98)">180</span> <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> lon <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">180</span>:
+<span class="ansi-green-fg">---&gt; 95</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">&#34;</span><span style="color: rgb(175,0,0)">Longitude </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>lon<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)"> is out of range [-180, 180]</span><span style="color: rgb(175,0,0)">&#34;</span>)
+
+<span class="ansi-red-fg">ValueError</span>: Longitude 359 is out of range [-180, 180]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using -1 for lon works</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># (lat, lon)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">haversine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+222.3901604670658
+</pre></div></div>
+</div>
+</section>
+<section id="sklearn">
+<h2>sklearn<a class="headerlink" href="#sklearn" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.haversine_distances.html">https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.haversine_distances.html</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using 359 for lon works</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+<span class="n">b_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">a_in_radians</span><span class="p">,</span> <span class="n">b_in_radians</span><span class="p">])</span>
+<span class="n">result</span> <span class="o">*</span> <span class="mf">6371008.8</span><span class="o">/</span><span class="mi">1000</span>  <span class="c1"># multiply by Earth radius to get kilometers</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  0.        , 222.39016047],
+       [222.39016047,   0.        ]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using -1 for lon works</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+<span class="n">b_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">a_in_radians</span><span class="p">,</span> <span class="n">b_in_radians</span><span class="p">])</span>
+<span class="n">result</span> <span class="o">*</span> <span class="mf">6371008.8</span><span class="o">/</span><span class="mi">1000</span>  <span class="c1"># multiply by Earth radius to get kilometers</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  0.        , 222.39016047],
+       [222.39016047,   0.        ]])
+</pre></div></div>
+</div>
+</section>
+<section id="define-our-own-functions-using-sklearn">
+<h2>define our own functions using sklearn<a class="headerlink" href="#define-our-own-functions-using-sklearn" title="Permalink to this heading"></a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">havesine_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">a_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="n">b_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">a_in_radians</span><span class="p">,</span> <span class="n">b_in_radians</span><span class="p">])</span><span class="o">*</span> <span class="mf">6371008.8</span><span class="o">/</span><span class="mi">1000</span>
+    <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using 359 for lon works</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">havesine_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+222.3901604670658
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using -1 for lon works</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">havesine_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+222.3901604670658
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Zhonghua Zheng.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
