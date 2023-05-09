@@ -124,8 +124,8 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># results from the sklearn package, based on</span>
 <span class="c1"># https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.haversine_distances.html</span>
-<span class="n">lyon</span> <span class="o">=</span> <span class="p">[</span><span class="mf">45.7597</span><span class="p">,</span> <span class="mf">4.8422</span><span class="p">]</span>
-<span class="n">paris</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.8567</span><span class="p">,</span> <span class="mf">2.3508</span><span class="p">]</span>
+<span class="n">lyon</span> <span class="o">=</span> <span class="p">(</span><span class="mf">45.7597</span><span class="p">,</span> <span class="mf">4.8422</span><span class="p">)</span>
+<span class="n">paris</span> <span class="o">=</span> <span class="p">(</span><span class="mf">48.8567</span><span class="p">,</span> <span class="mf">2.3508</span><span class="p">)</span>
 <span class="n">lyon_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">lyon</span><span class="p">]</span>
 <span class="n">paris_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">paris</span><span class="p">]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">lyon_in_radians</span><span class="p">,</span> <span class="n">paris_in_radians</span><span class="p">])</span>
@@ -215,8 +215,8 @@ File <span class="ansi-green-fg">~/miniconda3/lib/python3.10/site-packages/haver
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using 359 for lon works</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
 <span class="n">b_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">a_in_radians</span><span class="p">,</span> <span class="n">b_in_radians</span><span class="p">])</span>
@@ -239,8 +239,8 @@ array([[  0.        , 222.39016047],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using -1 for lon works</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">a_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
 <span class="n">b_in_radians</span> <span class="o">=</span> <span class="p">[</span><span class="n">radians</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">b</span><span class="p">]</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">haversine_distances</span><span class="p">([</span><span class="n">a_in_radians</span><span class="p">,</span> <span class="n">b_in_radians</span><span class="p">])</span>
@@ -278,8 +278,8 @@ array([[  0.        , 222.39016047],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using 359 for lon works</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">359</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">havesine_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -298,8 +298,8 @@ array([[  0.        , 222.39016047],
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using -1 for lon works</span>
-<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">havesine_dist</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
