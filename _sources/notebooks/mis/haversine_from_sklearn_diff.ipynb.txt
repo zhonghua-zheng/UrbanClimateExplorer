@@ -5,7 +5,7 @@
    "id": "f3f86140",
    "metadata": {},
    "source": [
-    "# Use sklearn for haversine distance calculation"
+    "# Haversine distance calculation"
    ]
   },
   {
@@ -47,7 +47,7 @@
   {
    "cell_type": "code",
    "execution_count": 3,
-   "id": "a4fdcffa",
+   "id": "14413847",
    "metadata": {},
    "outputs": [
     {
@@ -217,7 +217,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "def havesine_dist(a, b):\n",
+    "def havesine_dist_sk(a, b):\n",
     "    a_in_radians = [radians(_) for _ in a]\n",
     "    b_in_radians = [radians(_) for _ in b]\n",
     "    result = haversine_distances([a_in_radians, b_in_radians])* 6371008.8/1000\n",
@@ -245,7 +245,7 @@
     "# Using 359 for lon works\n",
     "a = (0, 359)\n",
     "b = (0, 1)\n",
-    "havesine_dist(a, b)"
+    "havesine_dist_sk(a, b)"
    ]
   },
   {
@@ -269,6 +269,143 @@
     "# Using -1 for lon works\n",
     "a = (0, -1)\n",
     "b = (0, 1)\n",
+    "havesine_dist_sk(a, b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "d9a281c1",
+   "metadata": {},
+   "source": [
+    "## define our own function using haversine to create consistent results"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "dd9850c9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def havesine_dist(a, b):\n",
+    "    a_n = (a[0], ((a[1] + 180) % 360) - 180)\n",
+    "    b_n = (b[0], ((b[1] + 180) % 360) - 180)\n",
+    "    return haversine(a_n, b_n)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "9edbfbfd",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "222.3901604670658"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Using 359 for lon works\n",
+    "a = (0, -1)\n",
+    "b = (0, 1)\n",
+    "havesine_dist(a, b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "6b4ec42e",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "222.3901604670658"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Using 359 for lon works\n",
+    "a = (0, 359)\n",
+    "b = (0, 1)\n",
+    "havesine_dist(a, b)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "b295acc4",
+   "metadata": {},
+   "source": [
+    "## Profilling"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "9539c0c4",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CPU times: user 121 µs, sys: 0 ns, total: 121 µs\n",
+      "Wall time: 131 µs\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "222.39016046706487"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%time\n",
+    "havesine_dist_sk(a, b)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "22f72201",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "CPU times: user 20 µs, sys: 5 µs, total: 25 µs\n",
+      "Wall time: 30.3 µs\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "222.3901604670658"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%%time\n",
     "havesine_dist(a, b)"
    ]
   }
