@@ -3,8 +3,10 @@ import numpy as np
 import pandas as pd
 import xarray as xr
 import gc
-# import time as timer
+from math import radians
 from haversine import haversine
+# import time as timer
+# from sklearn.metrics.pairwise import haversine_distances
 
 catalog_url_dict = {
         "CESM1": 'https://raw.githubusercontent.com/NCAR/cesm-lens-aws/main/intake-catalogs/aws-cesm1-le.json',
@@ -12,6 +14,57 @@ catalog_url_dict = {
         "CESM2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
         "cesm2": 'https://raw.githubusercontent.com/NCAR/cesm2-le-aws/main/intake-catalogs/aws-cesm2-le.json',
     }
+
+def haversine_dist(a, b):
+    """This is a function for getting the haversine distance
+
+    Parameters
+    ----------
+    a: list 
+        [lat, lon]
+        e.g., (45.7597, 4.8422)
+    b: list 
+        [lat, lon]
+        e.g., (48.8567, 2.3508)
+    er: 
+        Earth radius, default is 6371.0088 km
+
+    Returns
+    -------
+    haversine_dist
+        the haversine distance between a and b
+    """
+    a_n = (a[0], ((a[1] + 180) % 360) - 180)
+    b_n = (b[0], ((b[1] + 180) % 360) - 180)
+    return haversine(a_n, b_n)
+
+'''
+def haversine_dist_sk(a, b, er = 6371.0088):
+    """This is a function for getting the haversine distance, which overcomes 
+    the issue that haversine can only take the value between -180 and 180
+    Earth radius provided by https://github.com/mapado/haversine/blob/main/haversine/haversine.py 
+
+    Parameters
+    ----------
+    a: list 
+        [lat, lon]
+        e.g., (45.7597, 4.8422)
+    b: list 
+        [lat, lon]
+        e.g., (48.8567, 2.3508)
+    er: 
+        Earth radius, default is 6371.0088 km
+
+    Returns
+    -------
+    haversine_dist
+        the haversine distance between a and b
+    """
+    a_in_radians = [radians(_) for _ in a]
+    b_in_radians = [radians(_) for _ in b]
+    result = haversine_distances([a_in_radians, b_in_radians])* er
+    return result[0][1]
+'''
 
 class load_clm_subgrid_info:
     """This class is used for 1D to 3D conversion, for more information:
@@ -264,13 +317,8 @@ def get_mask_cities(mask):
         a dict of cities' lat and lon
     """
     
-    # pad a new mask for periodic in longitude
-    mask_pad = mask.sel(lon=slice(0,180))
-    mask_pad = mask_pad.assign_coords(lon = mask_pad.indexes['lon']+360)
-    mask_w_pad = xr.concat([mask, mask_pad], dim="lon")
-    
     # get mask dataframe
-    df_mask = mask_w_pad.to_dataframe().reset_index() 
+    df_mask = mask.to_dataframe().reset_index() 
     df_mask = df_mask[df_mask["mask"]==True].reset_index(drop=True)[["lat","lon"]] # get available cities
     CitiesList = list(df_mask.transpose().to_dict().values()) # get a list of city lat/lon
     return CitiesList
@@ -293,7 +341,7 @@ def closest(data, v):
     """
 
     # find the nearest urban grid cell in CESM using haversine distance
-    return min(data, key=lambda p: haversine((v['lat'],v['lon']),(p['lat'],p['lon'])))
+    return min(data, key=lambda p: haversine_dist([v['lat'],v['lon']],[p['lat'],p['lon']]))
 
 # get nearst point
 def get_data(model, city_loc, experiment, frequency, member_id, time, cam_ls, clm_ls, clm_var_mask=None, forcing_variant=None, urban_type=None, a_component="atm", l_component="lnd"):
